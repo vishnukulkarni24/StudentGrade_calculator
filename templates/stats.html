@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stats - P.N. Highschool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="top-bar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="P.N. Highschool Logo" height="50">
+        <span>P.N. Highschool</span>
+    </div>
+    <nav class="nav-bar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session['role'] == 'admin' %}
+        <a href="{{ url_for('add_student_route') }}">Add Student</a>
+        {% endif %}
+        <a href="{{ url_for('stats') }}">Stats</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</div>
+
+<div class="container stats-container">
+    <h1>📊 Student Statistics</h1>
+    <div class="stats-summary">
+        <div class="stats-card">
+            <h2>Average Percentage</h2>
+            <p class="big-number">{{ avg_percentage }}%</p>
+        </div>
+        <div class="stats-card">
+            <h2>Grade Distribution</h2>
+            <ul class="grade-list">
+                {% for grade, count in grade_counts.items() %}
+                <li><span class="grade">{{ grade }}</span> — {{ count }} student(s)</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="charts">
+        <div class="chart">
+            <h3>Average Percentage per Student</h3>
+            <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
+        </div>
+        <div class="chart">
+            <h3>Grade Distribution</h3>
+            <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+        </div>
+    </div>
+</div>
+</body>
+</html>

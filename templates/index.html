@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List - P.N. Highschool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="top-bar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <span>P.N. Highschool</span>
+    </div>
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session['role'] == 'admin' %}
+        <a href="{{ url_for('add_student_route') }}">Add Student</a>
+        {% endif %}
+        <a href="{{ url_for('stats') }}">Stats</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Student List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Math</th>
+                <th>Science</th>
+                <th>English</th>
+                <th>Total</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+                {% if session['role'] == 'admin' %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.math }}</td>
+                <td>{{ student.science }}</td>
+                <td>{{ student.english }}</td>
+                <td>{{ student.total_marks }}</td>
+                <td>{{ '%.2f'|format(student.percentage) }}%</td>
+                <td>{{ student.grade }}</td>
+                {% if session['role'] == 'admin' %}
+                <td>
+                    <a href="{{ url_for('update_route', id=student.id) }}" class="btn">✏️ Update</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student - P.N. Highschool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="top-bar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="P.N. Highschool Logo" height="50">
+        <span>P.N. Highschool</span>
+    </div>
+    <nav class="nav-bar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('add_student_route') }}">Add Student</a>
+        <a href="{{ url_for('stats') }}">Stats</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</div>
+
+<div class="container">
+    <h1>Add Student</h1>
+    <form method="post">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        <label>Math:</label>
+        <input type="number" name="math" step="0.01" required>
+        <label>Science:</label>
+        <input type="number" name="science" step="0.01" required>
+        <label>English:</label>
+        <input type="number" name="english" step="0.01" required>
+        <input type="submit" value="Add Student" class="btn">
+    </form>
+</div>
+</body>
+</html>

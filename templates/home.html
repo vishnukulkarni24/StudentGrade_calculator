@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - P.N. Highschool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="top-bar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <span>P.N. Highschool</span>
+    </div>
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session['role'] == 'admin' %}
+        <a href="{{ url_for('add_student_route') }}">Add Student</a>
+        {% endif %}
+        <a href="{{ url_for('stats') }}">Stats</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Welcome, {{ session['username'] }}!</h1>
+    <p>Use the navigation above or the button below to view the student list.</p>
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="{{ url_for('home_student_list') }}" class="btn">View Student List</a>
+    </div>
+</div>
+</body>
+</html>
